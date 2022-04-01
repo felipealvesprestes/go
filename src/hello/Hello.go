@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
+
+const quantidadeMonitoramento = 2
+const delay = 3
 
 func main() {
 
@@ -24,7 +28,7 @@ func main() {
 			fmt.Println("Saindo do programa...")
 			os.Exit(0)
 		default:
-			fmt.Println("Opção válida.")
+			fmt.Println("Encerrando programa.")
 			fmt.Println()
 			os.Exit(-1)
 		}
@@ -61,16 +65,30 @@ func leOpcao() int {
 }
 
 func iniciarMonitoramento() {
-	// website := "http://eelslap.com"
-	website := "https://random-status-code.herokuapp.com"
 
+	websites := []string{
+		"http://eelslap.com",
+		"https://random-status-code.herokuapp.com",
+		"https://google.com.br",
+	}
+
+	for i := 0; i < quantidadeMonitoramento; i++ {
+		for _, website := range websites {
+			testaWebsite(website)
+		}
+
+		time.Sleep(delay * time.Second)
+
+		fmt.Println()
+	}
+}
+
+func testaWebsite(website string) {
 	status, _ := http.Get(website)
 
 	if status.StatusCode == 200 {
-		fmt.Println("O site", website, "está online.")
-		fmt.Println()
+		fmt.Println("[", website, "] está online.")
 	} else {
-		fmt.Println("O site", website, "está fora do ar.")
-		fmt.Println()
+		fmt.Println("[", website, "] está fora do ar.")
 	}
 }
