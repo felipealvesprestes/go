@@ -115,6 +115,8 @@ func leArquivoListaWebsites() []string {
 		}
 	}
 
+	arquivo.Close()
+
 	return websites
 }
 
