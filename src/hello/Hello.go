@@ -4,8 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -26,7 +28,7 @@ func main() {
 		case 1:
 			iniciarMonitoramento()
 		case 2:
-			fmt.Println("Exibindo logs...")
+			exibeLogs()
 		case 3:
 			fmt.Println("Saindo do programa...")
 			os.Exit(0)
@@ -89,7 +91,9 @@ func testaWebsite(website string) {
 
 	if status.StatusCode == 200 {
 		fmt.Println("[", website, "] está online.")
+		gravaLog(website, true)
 	} else {
+		gravaLog(website, false)
 		fmt.Println("[", website, "] está fora do ar.")
 	}
 }
@@ -125,4 +129,21 @@ func trataMensagemErro(erro error) {
 		fmt.Println("Erro#", erro)
 		os.Exit(-1)
 	}
+}
+
+func gravaLog(website string, status bool) {
+	arquivo, erro := os.OpenFile("log.txt", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0666)
+
+	trataMensagemErro(erro)
+
+	arquivo.WriteString("[" + time.Now().Format("02/01/2006 15:04:05") + "] " + website + " (online: " + strconv.FormatBool(status) + ")\n")
+	arquivo.Close()
+}
+
+func exibeLogs() {
+	arquivo, erro := ioutil.ReadFile("log.txt")
+
+	trataMensagemErro(erro)
+
+	fmt.Println(string(arquivo))
 }
