@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -66,11 +69,7 @@ func leOpcao() int {
 
 func iniciarMonitoramento() {
 
-	websites := []string{
-		"http://eelslap.com",
-		"https://random-status-code.herokuapp.com",
-		"https://google.com.br",
-	}
+	websites := leArquivoListaWebsites()
 
 	for i := 0; i < quantidadeMonitoramento; i++ {
 		for _, website := range websites {
@@ -84,11 +83,44 @@ func iniciarMonitoramento() {
 }
 
 func testaWebsite(website string) {
-	status, _ := http.Get(website)
+	status, erro := http.Get(website)
+
+	trataMensagemErro(erro)
 
 	if status.StatusCode == 200 {
 		fmt.Println("[", website, "] está online.")
 	} else {
 		fmt.Println("[", website, "] está fora do ar.")
+	}
+}
+
+func leArquivoListaWebsites() []string {
+	var websites []string
+
+	arquivo, erro := os.Open("lista-websites.txt")
+
+	trataMensagemErro(erro)
+
+	buffer := bufio.NewReader(arquivo)
+
+	for {
+		linha, erro := buffer.ReadString('\n')
+
+		linha = strings.TrimSpace(linha)
+
+		websites = append(websites, linha)
+
+		if erro == io.EOF {
+			break
+		}
+	}
+
+	return websites
+}
+
+func trataMensagemErro(erro error) {
+	if erro != nil {
+		fmt.Println("Erro#", erro)
+		os.Exit(-1)
 	}
 }

@@ -1,0 +1,3 @@
+http://eelslap.com
+https://random-status-code.herokuapp.com
+https://google.com.br
