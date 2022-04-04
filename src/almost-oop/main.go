@@ -23,16 +23,16 @@ func main() {
 	contaFelipe.NumeroAgencia = 598
 	contaFelipe.NumeroConta = 3322
 	contaFelipe.Titular = cliente1
-	contaFelipe.Saldo = 3450
+	contaFelipe.Depositar(3450)
 
 	contaPedro := contas.ContaCorrente{}
 
 	contaPedro.NumeroAgencia = 778
 	contaPedro.NumeroConta = 4677
 	contaPedro.Titular = cliente2
-	contaPedro.Saldo = 3000
+	contaPedro.Depositar(3000)
 
-	fmt.Println("Saldo atual:", contaFelipe.Saldo)
+	fmt.Println("Saldo atual:", contaFelipe.GetSaldo())
 
 	retornoSaque, saldoAposSaque := contaFelipe.Sacar(100)
 	fmt.Println(retornoSaque, "Saldo atual:", saldoAposSaque)
@@ -42,8 +42,8 @@ func main() {
 
 	if contaFelipe.Transferir(350, &contaPedro) {
 		fmt.Println("Transferencia realizada.")
-		fmt.Println("Saldo atual (Felipe):", contaFelipe.Saldo)
-		fmt.Println("Saldo atual (Pedro):", contaPedro.Saldo)
+		fmt.Println("Saldo atual (Felipe):", contaFelipe.GetSaldo())
+		fmt.Println("Saldo atual (Pedro):", contaPedro.GetSaldo())
 	} else {
 		fmt.Println("Saldo insuficiente.")
 	}
