@@ -2,7 +2,9 @@
 
 Simple CRUD project created with Go.
 
-To set up project, run the command below to initilize the docker.
+> **Important:** To test the project, is necessary that Go will be installed in your machine.
+
+To set up database project, run the command below to initilize the docker.
 
 ```
 docker compose up
@@ -24,6 +26,12 @@ CREATE TABLE IF NOT EXISTS produtos (
 	preco decimal NOT NULL,
 	quantidade int NOT NULL
 );
+```
+
+Run the command below to execute server.
+
+```
+go run main.go
 ```
 
 Now just open in browser the address.
