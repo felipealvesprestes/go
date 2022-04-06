@@ -8,7 +8,7 @@ import (
 )
 
 func DbConnect() *sql.DB {
-	stringConexao := "user=postgres password=postgres dbname=loja_alura host=localhost sslmode=disable"
+	stringConexao := "user=postgres password=postgres dbname=loja host=localhost sslmode=disable"
 	db, err := sql.Open("postgres", stringConexao)
 
 	if err != nil {
