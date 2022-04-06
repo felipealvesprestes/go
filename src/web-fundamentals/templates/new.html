@@ -1,111 +1,79 @@
-{{ define "New" }}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-        <title>Loja</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="/"><b>#loja</b></a>
-        </nav>
+{{ define "New" }} {{ template "_head" }} {{ template "_menu" }}
 
-        <div class="container">
-            <div class="col-sm-12">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-5">Novo produto</h1>
-                        <p class="lead">Insira os detalhes</p>
-                    </div>
-                </div>
-
-                <form method="POST" action="insert">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group">
-                                <label for="nome">Nome:</label>
-                                <input
-                                    type="text"
-                                    name="nome"
-                                    id="nome"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group">
-                                <label for="descricao">Descrição:</label>
-                                <input
-                                    type="text"
-                                    name="descricao"
-                                    id="descricao"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label for="preco">Preço:</label>
-                                <input
-                                    type="number"
-                                    name="preco"
-                                    id="preco"
-                                    class="form-control"
-                                    step="0.01"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label for="quantidade">Quantidade:</label>
-                                <input
-                                    type="number"
-                                    name="quantidade"
-                                    id="quantidade"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <a class="btn btn-outline-secondary" href="/">Voltar</a>
-                    <button
-                        type="submit"
-                        value="salvar"
-                        class="btn btn-primary"
-                    >
-                        Salvar
-                    </button>
-                </form>
+<div class="container">
+    <div class="col-sm-12">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-5">Novo produto</h1>
+                <p class="lead">Insira os detalhes</p>
             </div>
         </div>
 
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"
-        ></script>
-    </body>
-</html>
-{{ end }}
+        <form method="POST" action="insert">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input
+                            type="text"
+                            name="nome"
+                            id="nome"
+                            class="form-control"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <input
+                            type="text"
+                            name="descricao"
+                            id="descricao"
+                            class="form-control"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="preco">Preço:</label>
+                        <input
+                            type="number"
+                            name="preco"
+                            id="preco"
+                            class="form-control"
+                            step="0.01"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade:</label>
+                        <input
+                            type="number"
+                            name="quantidade"
+                            id="quantidade"
+                            class="form-control"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-outline-secondary" href="/">Voltar</a>
+            <button type="submit" value="salvar" class="btn btn-primary">
+                Salvar
+            </button>
+        </form>
+    </div>
+</div>
+
+{{ template "_footer" }} {{ end }}
