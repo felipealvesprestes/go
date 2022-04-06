@@ -1,4 +1,4 @@
-module web-fundamentals
+module github.com/felipealvesprestes/web-fundamentals
 
 go 1.18
 
