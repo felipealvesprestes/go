@@ -6,6 +6,8 @@ import (
 	"github.com/felipealvesprestes/web-fundamentals/controllers"
 )
 
-func CarregaRoutes() {
+func LoadRoutes() {
 	http.HandleFunc("/", controllers.Index)
+	http.HandleFunc("/new", controllers.New)
+	http.HandleFunc("/insert", controllers.Insert)
 }

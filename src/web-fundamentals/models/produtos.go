@@ -13,40 +13,54 @@ type Produto struct {
 	Quantidade int
 }
 
-func BuscaTodosProdutos() []Produto {
-	db := config.ConectaBanco()
+func FindAllProducts() []Produto {
+	db := config.DbConnect()
 
-	selectProdutos, err := db.Query("select * from produtos")
+	findaAllProducts, err := db.Query("select * from produtos")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	produto := Produto{}
-	produtos := []Produto{}
+	product := Produto{}
+	products := []Produto{}
 
-	for selectProdutos.Next() {
+	for findaAllProducts.Next() {
 		var id int
-		var nome string
-		var descricao string
-		var preco float64
-		var quantidade int
+		var name string
+		var description string
+		var price float64
+		var quantity int
 
-		err = selectProdutos.Scan(&id, &nome, &descricao, &preco, &quantidade)
+		err = findaAllProducts.Scan(&id, &name, &description, &price, &quantity)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		produto.Nome = nome
-		produto.Descricao = descricao
-		produto.Preco = preco
-		produto.Quantidade = quantidade
+		product.Nome = name
+		product.Descricao = description
+		product.Preco = price
+		product.Quantidade = quantity
 
-		produtos = append(produtos, produto)
+		products = append(products, product)
 	}
 
 	defer db.Close()
 
-	return produtos
+	return products
+}
+
+func InsertNewProduct(name string, description string, price float64, quantity int) {
+	db := config.DbConnect()
+
+	insertDatabase, err := db.Prepare("insert into produtos (nome, descricao, preco, quantidade) values ($1, $2, $3, $4)")
+
+	if err != nil {
+		log.Fatal("Erro ao cadastrar o novo produto.")
+	}
+
+	insertDatabase.Exec(name, description, price, quantity)
+
+	defer db.Close()
 }
