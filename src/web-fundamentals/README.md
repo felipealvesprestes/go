@@ -25,3 +25,9 @@ CREATE TABLE IF NOT EXISTS produtos (
 	quantidade int NOT NULL
 );
 ```
+
+Now just open in browser the address.
+
+```
+http://localhost:8000/
+```
