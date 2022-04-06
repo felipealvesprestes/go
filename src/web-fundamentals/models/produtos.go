@@ -7,6 +7,7 @@ import (
 )
 
 type Produto struct {
+	Id         int
 	Nome       string
 	Descricao  string
 	Preco      float64
@@ -38,6 +39,7 @@ func FindAllProducts() []Produto {
 			log.Fatal(err)
 		}
 
+		product.Id = id
 		product.Nome = name
 		product.Descricao = description
 		product.Preco = price
@@ -61,6 +63,20 @@ func InsertNewProduct(name string, description string, price float64, quantity i
 	}
 
 	insertDatabase.Exec(name, description, price, quantity)
+
+	defer db.Close()
+}
+
+func DeleteProductById(productId string) {
+	db := config.DbConnect()
+
+	deleteDatabase, err := db.Prepare("delete from produtos where id = $1")
+
+	if err != nil {
+		log.Fatal("Erro ao excluir o produto.")
+	}
+
+	deleteDatabase.Exec(productId)
 
 	defer db.Close()
 }
