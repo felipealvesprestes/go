@@ -1,12 +1,13 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"rest-api-with-gin/models"
+
+	"github.com/gin-gonic/gin"
+)
 
 func ExibeTodosAlunos(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"id":   "123",
-		"nome": "Felipe Prestes",
-	})
+	c.JSON(200, models.Alunos)
 }
 
 func Hello(c *gin.Context) {
