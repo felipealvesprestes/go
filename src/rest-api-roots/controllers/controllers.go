@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
+	"rest-api-roots/database"
 	"rest-api-roots/models"
 
 	"github.com/gorilla/mux"
@@ -17,19 +17,18 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(models.Personalidades)
+
+	var personalidades []models.Personalidade
+	database.DB.Find(&personalidades)
+	json.NewEncoder(w).Encode(personalidades)
 }
 
 func RetornoPersonalidadeEspecifica(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	vars := mux.Vars(r)
-
 	id := vars["id"]
-
-	for _, personalidade := range models.Personalidades {
-		if strconv.Itoa(personalidade.Id) == id {
-			json.NewEncoder(w).Encode(personalidade)
-		}
-	}
+	var personalidade models.Personalidade
+	database.DB.First(&personalidade, id)
+	json.NewEncoder(w).Encode(personalidade)
 }
