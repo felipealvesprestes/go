@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
-
 	"rest-api-roots/controllers"
+
+	"github.com/gorilla/mux"
 )
 
 func HandleRequest() {
