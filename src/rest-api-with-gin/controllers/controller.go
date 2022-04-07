@@ -18,7 +18,7 @@ func Hello(c *gin.Context) {
 func ExibeTodosAlunos(c *gin.Context) {
 	var alunos []models.Aluno
 	database.DB.Find(&alunos)
-	c.JSON(http.StatusOK, models.Alunos)
+	c.JSON(http.StatusOK, alunos)
 }
 
 func CriaAluno(c *gin.Context) {
@@ -31,4 +31,11 @@ func CriaAluno(c *gin.Context) {
 	}
 	database.DB.Create(&aluno)
 	c.JSON(http.StatusCreated, aluno)
+}
+
+func ExibeAluno(c *gin.Context) {
+	var aluno models.Aluno
+	id := c.Params.ByName("id")
+	database.DB.First(&aluno, id)
+	c.JSON(http.StatusOK, aluno)
 }
